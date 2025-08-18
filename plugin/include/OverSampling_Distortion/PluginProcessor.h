@@ -2,11 +2,12 @@
 
 #include <juce_audio_processors/juce_audio_processors.h>
 
-namespace audio_plugin {
-class AudioPluginAudioProcessor : public juce::AudioProcessor {
+namespace OverSampling_Distortion {
+
+class OverSampling_DistortionAudioProcessor : public juce::AudioProcessor {
 public:
-  AudioPluginAudioProcessor();
-  ~AudioPluginAudioProcessor() override;
+  OverSampling_DistortionAudioProcessor();
+  ~OverSampling_DistortionAudioProcessor() override;
 
   void prepareToPlay(double sampleRate, int samplesPerBlock) override;
   void releaseResources() override;
@@ -36,6 +37,7 @@ public:
   void setStateInformation(const void* data, int sizeInBytes) override;
 
 private:
-  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AudioPluginAudioProcessor)
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OverSampling_DistortionAudioProcessor)
 };
-}  // namespace audio_plugin
+
+}  // namespace OverSampling_Distortion

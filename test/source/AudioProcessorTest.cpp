@@ -1,8 +1,10 @@
-#include <YourPluginName/PluginProcessor.h>
+#include <OverSampling_Distortion/PluginProcessor.h>
 #include <gtest/gtest.h>
 
-namespace audio_plugin_test {
+namespace OverSampling_Distortion_test {
+
 TEST(AudioProcessor, Foo) {
-  audio_plugin::AudioPluginAudioProcessor processor{};
+  OverSampling_Distortion::OverSampling_DistortionAudioProcessor processor{};
 }
-}  // namespace audio_plugin_test
+
+}  // namespace OverSampling_Distortion_test

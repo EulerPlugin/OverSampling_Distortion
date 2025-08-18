@@ -5,13 +5,13 @@ project(AudioPlugin VERSION 0.1.0)
 
 # Adding a directory with the library/application name as a subfolder of the
 # include folder is a good practice. It helps avoid name clashes later on.
-set(INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include/YourPluginName")
+set(INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include/OverSampling_Distortion")
 
 # Adds a plugin target (that's basically what the Projucer does).
 juce_add_plugin(
   ${PROJECT_NAME}
   COMPANY_NAME
-  "MyCompany" # change this
+  "EulerPlugin" # change this
   IS_SYNTH
   FALSE # may change this
   NEEDS_MIDI_INPUT
@@ -19,15 +19,26 @@ juce_add_plugin(
   NEEDS_MIDI_OUTPUT
   FALSE # may change this
   PLUGIN_MANUFACTURER_CODE
-  Mcmp # change this (for max compatibility, first letter must be uppercase, remaining lowercase)
+  Eulr # change this (for max compatibility, first letter must be uppercase, remaining lowercase)
   PLUGIN_CODE
-  Expl # change this (for max compatibility, first letter must be uppercase, remaining lowercase)
+  Ovds # change this (for max compatibility, first letter must be uppercase, remaining lowercase)
   FORMATS
   Standalone
-  VST3 # may change this
+  VST3 
+  AU	# may change this
   PRODUCT_NAME
-  "YourPluginName" # change this
+  "OverSampling_Distortion" # change this
 )
+
+add_custom_target(copy_AU ALL
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "/Users/sanghoonyou/Desktop/DSP_WolfSound/Lesson04.DSP_Practice/OverSampling_Distortion/build/plugin/AudioPlugin_artefacts/Debug/AU/OverSampling_Distortion.component"
+        "/Users/sanghoonyou/Library/Audio/Plug-Ins/Components/OverSampling_Distortion.component"
+    COMMENT "Copying AU component to user Components folder"
+)
+
+# 반드시 AU 빌드가 끝난 뒤 실행되도록 의존성 추가
+add_dependencies(copy_AU AudioPlugin_AU)
 
 # Sets the source files of the plugin project.
 set(SOURCE_FILES source/PluginEditor.cpp source/PluginProcessor.cpp)
