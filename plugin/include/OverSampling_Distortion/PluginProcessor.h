@@ -2,8 +2,7 @@
 
 #include <juce_audio_processors/juce_audio_processors.h>
 #include <OverSampling_Distortion/DistortionDSP.h>
-
-
+#include <OverSampling_Distortion/OverSampling.h>
 
 namespace OverSampling_Distortion {
 
@@ -41,9 +40,8 @@ class OverSampling_DistortionAudioProcessor : public juce::AudioProcessor {
         void setStateInformation(const void* data, int sizeInBytes) override;
 
 private:
-    
-
-
+        DistortionDSP mDistortion;
+        OverSampling Resampling;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(OverSampling_DistortionAudioProcessor)
 };

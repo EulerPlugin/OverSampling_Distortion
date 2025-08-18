@@ -16,9 +16,7 @@ class DistortionDSP
         DistortionDSP();
         ~DistortionDSP();
         
-        void prepare() noexcept;
         float process(const float inPutSample) noexcept;
-        
     private:
         const float G = 10.0f;
         

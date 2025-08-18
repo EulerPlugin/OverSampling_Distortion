@@ -18,11 +18,6 @@ DistortionDSP::~DistortionDSP()
     
 }
 
-void DistortionDSP::prepare() noexcept
-{
-    
-}
-
 float DistortionDSP::process(const float inPutSample) noexcept
 {
     float outPutSample;

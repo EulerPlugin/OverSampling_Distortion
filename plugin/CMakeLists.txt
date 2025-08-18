@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.22)
 
 # Version is needed by JUCE.
-project(AudioPlugin VERSION 0.1.0)
+project(OverSampling_Distortion VERSION 0.1.0)
 
 # Adding a directory with the library/application name as a subfolder of the
 # include folder is a good practice. It helps avoid name clashes later on.
@@ -32,20 +32,26 @@ juce_add_plugin(
 
 add_custom_target(copy_AU ALL
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "/Users/sanghoonyou/Desktop/DSP_WolfSound/Lesson04.DSP_Practice/OverSampling_Distortion/build/plugin/AudioPlugin_artefacts/$<CONFIG>/AU/OverSampling_Distortion.component"
+        "/Users/sanghoonyou/Desktop/DSP_WolfSound/Lesson04.DSP_Practice/OverSampling_Distortion/build/plugin/OverSampling_Distortion_artefacts/$<CONFIG>/AU/OverSampling_Distortion.component"
         "/Users/sanghoonyou/Library/Audio/Plug-Ins/Components/OverSampling_Distortion.component"
     COMMENT "Copying AU component to user Components folder"
 )
 
 # 반드시 AU 빌드가 끝난 뒤 실행되도록 의존성 추가
-add_dependencies(copy_AU AudioPlugin_AU)
+add_dependencies(copy_AU OverSampling_Distortion_AU)
 
 # Sets the source files of the plugin project.
-set(SOURCE_FILES source/PluginEditor.cpp source/PluginProcessor.cpp source/DistortionDSP.cpp)
+set(SOURCE_FILES source/PluginEditor.cpp
+                 source/PluginProcessor.cpp
+                 source/DistortionDSP.cpp
+                 source/OverSampling.cpp)
+                 
 # Optional; includes header files in the project file tree in Visual Studio
 set(HEADER_FILES ${INCLUDE_DIR}/PluginEditor.h
                  ${INCLUDE_DIR}/PluginProcessor.h
-                 ${INCLUDE_DIR}/DistortionDSP.h)
+                 ${INCLUDE_DIR}/DistortionDSP.h
+                 ${INCLUDE_DIR}/OverSampling.h)
+                 
 target_sources(${PROJECT_NAME} PRIVATE ${SOURCE_FILES} ${HEADER_FILES})
 
 # Sets the include directories of the plugin project.
@@ -53,10 +59,16 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/in
 
 # Links to all necessary dependencies. The present ones are recommended by JUCE.
 # If you use one of the additional modules, like the DSP module, you need to specify it here.
-target_link_libraries_system(${PROJECT_NAME} PUBLIC juce::juce_audio_utils)
+target_link_libraries_system(${PROJECT_NAME} PUBLIC
+                             juce::juce_audio_utils
+                             juce::juce_dsp
+)
+
 target_link_libraries(
-  ${PROJECT_NAME} PUBLIC juce::juce_recommended_config_flags juce::juce_recommended_lto_flags
-                         juce::juce_recommended_warning_flags
+  ${PROJECT_NAME} PUBLIC
+                  juce::juce_recommended_config_flags
+                  juce::juce_recommended_lto_flags
+                  juce::juce_recommended_warning_flags
 )
 
 # These definitions are recommended by JUCE.

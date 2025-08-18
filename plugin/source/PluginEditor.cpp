@@ -23,7 +23,7 @@ void OverSampling_DistortionAudioProcessorEditor::paint(juce::Graphics& g)
 
       g.setColour(juce::Colours::white);
       g.setFont(15.0f);
-      g.drawFittedText("33333", getLocalBounds(),
+      g.drawFittedText("Distortion0550", getLocalBounds(),
                        juce::Justification::centred, 1);
 }
 

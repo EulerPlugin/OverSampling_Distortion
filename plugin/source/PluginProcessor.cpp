@@ -72,8 +72,11 @@ void OverSampling_DistortionAudioProcessor::changeProgramName(int index,
 }
 
 void OverSampling_DistortionAudioProcessor::prepareToPlay(double sampleRate,
-                                                          int samplesPerBlock) {
+                                                          int samplesPerBlock)
+{
   juce::ignoreUnused(sampleRate, samplesPerBlock);
+  Resampling.prepare(samplesPerBlock);
+  
 }
 
 void OverSampling_DistortionAudioProcessor::releaseResources() {
@@ -99,21 +102,45 @@ bool OverSampling_DistortionAudioProcessor::isBusesLayoutSupported(
 }
 
 void OverSampling_DistortionAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer,
-                                                         juce::MidiBuffer& midiMessages) {
-  juce::ignoreUnused(midiMessages);
+                                                         juce::MidiBuffer& midiMessages)
+{
+      juce::ignoreUnused(midiMessages);
 
-  juce::ScopedNoDenormals noDenormals;
-  auto totalNumInputChannels = getTotalNumInputChannels();
-  auto totalNumOutputChannels = getTotalNumOutputChannels();
+      juce::ScopedNoDenormals noDenormals;
+      auto totalNumInputChannels = getTotalNumInputChannels();
+      auto totalNumOutputChannels = getTotalNumOutputChannels();
 
-  for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-    buffer.clear(i, 0, buffer.getNumSamples());
+      for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
+        buffer.clear(i, 0, buffer.getNumSamples());
+      
+      juce::dsp::AudioBlock<float> block (buffer);
 
-  for (int channel = 0; channel < totalNumInputChannels; ++channel) {
-    auto* channelData = buffer.getWritePointer(channel);
-    juce::ignoreUnused(channelData);
-    // DSP 코드 작성 위치
-  }
+      Resampling.upProcess(block);
+      
+      for (int channel = 0; channel < buffer.getNumChannels(); ++channel)
+      {
+            for (int i = 0; i < static_cast<int>(block.getNumSamples()); ++i)
+            {
+                auto* channeldata = block.getChannelPointer(static_cast<size_t>(channel));
+                channeldata[i] =  mDistortion.process(channeldata[i]);
+            }
+      }
+      
+      Resampling.downProcess(block);
+      
+      
+//      for (int channel = 0; channel < totalNumInputChannels; ++channel)
+//      {
+//        auto* channelData = buffer.getWritePointer(channel);
+//        juce::ignoreUnused(channelData);
+//
+//        auto* inPutData = buffer.getReadPointer(channel);
+//
+//        for (int i = 0; i < buffer.getNumSamples(); ++i)
+//        {
+//            channelData[i] = mDistortion.process(inPutData[i]);
+//        }
+//      }
 }
 
 bool OverSampling_DistortionAudioProcessor::hasEditor() const {

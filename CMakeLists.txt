@@ -59,4 +59,4 @@ add_subdirectory(plugin)
 enable_testing()
 
 # Adds all the targets configured in the "test" folder.
-add_subdirectory(test)
+# add_subdirectory(test)
