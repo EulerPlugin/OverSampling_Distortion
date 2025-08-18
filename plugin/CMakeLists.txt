@@ -32,7 +32,7 @@ juce_add_plugin(
 
 add_custom_target(copy_AU ALL
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "/Users/sanghoonyou/Desktop/DSP_WolfSound/Lesson04.DSP_Practice/OverSampling_Distortion/build/plugin/AudioPlugin_artefacts/Debug/AU/OverSampling_Distortion.component"
+        "/Users/sanghoonyou/Desktop/DSP_WolfSound/Lesson04.DSP_Practice/OverSampling_Distortion/build/plugin/AudioPlugin_artefacts/$<CONFIG>/AU/OverSampling_Distortion.component"
         "/Users/sanghoonyou/Library/Audio/Plug-Ins/Components/OverSampling_Distortion.component"
     COMMENT "Copying AU component to user Components folder"
 )
@@ -41,9 +41,11 @@ add_custom_target(copy_AU ALL
 add_dependencies(copy_AU AudioPlugin_AU)
 
 # Sets the source files of the plugin project.
-set(SOURCE_FILES source/PluginEditor.cpp source/PluginProcessor.cpp)
+set(SOURCE_FILES source/PluginEditor.cpp source/PluginProcessor.cpp source/DistortionDSP.cpp)
 # Optional; includes header files in the project file tree in Visual Studio
-set(HEADER_FILES ${INCLUDE_DIR}/PluginEditor.h ${INCLUDE_DIR}/PluginProcessor.h)
+set(HEADER_FILES ${INCLUDE_DIR}/PluginEditor.h
+                 ${INCLUDE_DIR}/PluginProcessor.h
+                 ${INCLUDE_DIR}/DistortionDSP.h)
 target_sources(${PROJECT_NAME} PRIVATE ${SOURCE_FILES} ${HEADER_FILES})
 
 # Sets the include directories of the plugin project.
