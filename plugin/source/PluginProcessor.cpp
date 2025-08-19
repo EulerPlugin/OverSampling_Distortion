@@ -115,17 +115,17 @@ void OverSampling_DistortionAudioProcessor::processBlock(juce::AudioBuffer<float
       
       juce::dsp::AudioBlock<float> block (buffer);
 
-      Resampling.upProcess(block);
-      
+      juce::dsp::AudioBlock<float> upsampleBlock = Resampling.upProcess(block);
+
       for (int channel = 0; channel < buffer.getNumChannels(); ++channel)
       {
             for (int i = 0; i < static_cast<int>(block.getNumSamples()); ++i)
             {
-                auto* channeldata = block.getChannelPointer(static_cast<size_t>(channel));
+                auto* channeldata = upsampleBlock.getChannelPointer(static_cast<size_t>(channel));
                 channeldata[i] =  mDistortion.process(channeldata[i]);
             }
       }
-      
+
       Resampling.downProcess(block);
       
       
@@ -141,6 +141,7 @@ void OverSampling_DistortionAudioProcessor::processBlock(juce::AudioBuffer<float
 //            channelData[i] = mDistortion.process(inPutData[i]);
 //        }
 //      }
+      
 }
 
 bool OverSampling_DistortionAudioProcessor::hasEditor() const {

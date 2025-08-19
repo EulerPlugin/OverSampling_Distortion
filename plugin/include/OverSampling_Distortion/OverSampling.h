@@ -17,7 +17,7 @@ class OverSampling
         ~OverSampling();
         
         void prepare(int inBuffersize) noexcept;
-        void upProcess(juce::dsp::AudioBlock<float>& block) noexcept;
+        juce::dsp::AudioBlock<float> upProcess(juce::dsp::AudioBlock<float>& block) noexcept;
         void downProcess(juce::dsp::AudioBlock<float>& block) noexcept;
         
     private:

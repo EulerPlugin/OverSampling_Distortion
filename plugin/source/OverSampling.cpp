@@ -25,9 +25,9 @@ void OverSampling::prepare(int inBuffersize) noexcept
     Resampling.initProcessing(static_cast<size_t>(inBuffersize));
 }
 
-void OverSampling::upProcess(juce::dsp::AudioBlock<float>& block) noexcept
+juce::dsp::AudioBlock<float> OverSampling::upProcess(juce::dsp::AudioBlock<float>& block) noexcept
 {
-     Resampling.processSamplesUp(block);
+     return Resampling.processSamplesUp(block);
 }
 
 void OverSampling::downProcess(juce::dsp::AudioBlock<float>& block) noexcept
