@@ -46,3 +46,24 @@ The graphs below illustrate the interpolation caused by the low-pass filter. Lin
 
 
 
+
+<br>
+<br>
+<br>
+
+
+### Downsampling Implementation
+Pre-aliasing(low-pass) filter first, and then discatd the samples. The cutoff frequency of the low-pass filter is the half of the target sample rate. 
+
+
+<img width="752" height="264" alt="image" src="https://github.com/user-attachments/assets/7b8d1dfa-d8b9-44b1-bae3-57e4db8762d9" />
+
+
+As shown in the below graph, if we downsample without passing through a pre-aliasing fiilter, the Nyquist frequency becomes lower, which can cause aliasing
+
+
+<img width="757" height="456" alt="image" src="https://github.com/user-attachments/assets/caae6d2b-2373-470a-8270-1f1d5aa4a91f" />
+
+
+
+
