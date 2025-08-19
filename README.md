@@ -24,3 +24,25 @@ Input Signal
      ▼
 Output Signal
 ~~~
+
+<br>
+
+### Upsampling Implementation
+"Zero insertion + interpolation(low-pass) filter"
+The Interpolation filter's cutoff should be placed at the Nyquist frequency of the input signal 
+
+<img width="850" height="292" alt="image" src="https://github.com/user-attachments/assets/c5ec8cc7-c182-4bf0-a079-0e08e31941e0" />
+
+
+<br>
+
+
+The graphs below illustrate the interpolation caused by the low-pass filter. Linear interpolation uses two neighboring samples to compute all in-between samples.
+
+<img width="833" height="383" alt="image" src="https://github.com/user-attachments/assets/03484b30-2ee8-496f-b933-6db4ebf4cd78" />
+
+
+<img width="833" height="383" alt="image" src="https://github.com/user-attachments/assets/b19f3838-2823-4a17-a649-06d61f6dec52" />
+
+
+
