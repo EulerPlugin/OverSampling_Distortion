@@ -119,9 +119,11 @@ void OverSampling_DistortionAudioProcessor::processBlock(juce::AudioBuffer<float
 
       for (int channel = 0; channel < buffer.getNumChannels(); ++channel)
       {
+            auto* channeldata = upsampleBlock.getChannelPointer(static_cast<size_t>(channel));
+            
             for (int i = 0; i < static_cast<int>(block.getNumSamples()); ++i)
             {
-                auto* channeldata = upsampleBlock.getChannelPointer(static_cast<size_t>(channel));
+                
                 channeldata[i] =  mDistortion.process(channeldata[i]);
             }
       }
